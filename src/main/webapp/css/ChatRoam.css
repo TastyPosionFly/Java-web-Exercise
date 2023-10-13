@@ -1,0 +1,43 @@
+.chatroom-container {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    width: 400px;
+    height: 600px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.chatroom-head{
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.chatroom-window{
+    width: 350px;
+    height: 200px;
+    border: 2px solid black;
+    padding: 20px;
+    text-align: center;
+}
+
+.chatroom-input{
+    width: 200px;
+    height: 100px;
+    padding: 20px;
+    text-align: center;
+}
+
+#message-input{
+    flex: 1;
+    padding: 5px;
+}
+
+#message-button{
+    background-color: #333;
+    color: #fff;
+    margin-left: 10px;
+    cursor: pointer;
+}

@@ -1,0 +1,126 @@
+body{
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: beige;
+}
+
+.TitleContainer{
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    border-bottom: 4px solid red;
+    border-top: 4px solid red;
+    display: flex;
+    height: 50px;
+}
+
+.Title{
+    padding: 5px;
+    font-size: 30px;
+    font-weight: bolder;
+    color: black;
+}
+
+.SubTitle{
+    padding: 0px;
+    font-weight: bolder;
+    font-size: 25px;
+    color: black;
+}
+
+p{
+    text-indent: 20px;
+    font-weight: lighter;
+}
+
+.CenterContainer{
+    display: flex;
+    padding: 10px;
+    height: auto;
+}
+
+.left{
+    flex: 2;
+}
+
+.center{
+    flex: 1;
+}
+
+.right{
+    flex: 1;
+}
+
+.BriefContainer{
+    position: absolute;
+    left: 20px;
+    height: 200px;
+    width: 700px;
+}
+
+.InternationContainer{
+    position: absolute;
+    left: 20px;
+    height: 200px;
+    width: 700px;
+    margin-top: 150px;
+}
+
+.ChoiceContainer{
+    padding: 15px;
+    margin-top: 300px;
+    text-indent: 40px;
+    font-weight: 900;
+    font-size: 10px;
+}
+
+.Choice{
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.SubTitle1{
+    font-family: "华文楷体",sans-serif;
+    font-style: italic;
+    font-size: 15px;
+    font-weight: lighter;
+}
+
+.MainCourseContainer{
+    padding: 15px;
+    margin-left: 453px;
+}
+
+.MainCourse{
+    position: absolute;
+    left: 250px;
+}
+
+.MoreCourse{
+    color: blue;
+    cursor: pointer;
+}
+
+.ButtonContainer{
+    text-align: center;
+}
+
+.Button{
+    margin:10px;
+    width:250px;
+    height:50px;
+    opacity:1;
+    background-color:beige;
+    border:1px solid red;
+    font-size:15px;
+    font-weight:bold;
+    color: darkred;
+}
+
+.BottomContainer{
+    border-bottom: 4px solid red;
+    border-top: 4px solid red;
+    display: flex;
+    height: 50px;
+}
