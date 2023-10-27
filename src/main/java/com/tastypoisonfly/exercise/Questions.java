@@ -28,8 +28,6 @@ public class Questions extends HttpServlet {
         String sex = request.getParameter("sex");
         String hobbies = request.getParameter("hobbies");
 
-
-
         count++;
 
         data.add(new QuestionsData(count,name,age,sex,hobbies));
@@ -52,7 +50,6 @@ public class Questions extends HttpServlet {
         request.setAttribute("nameCounts",names);
 
         getServletContext().setAttribute("questionDataLists",data);//在Servlet中通信使用
-
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/Questions.jsp");
         dispatcher.forward(request,response);
