@@ -14,6 +14,8 @@ import java.util.*;
 public class Login extends HttpServlet {
     private List<UserMessagesData> userDatas;//用于保存加入聊天室的用户昵称
     private Map<String,Integer> userIndex;
+    private Map<String,String> userSessionId;//用于保存对于索引用户的sessionId,第二个String保存的是用户名
+
     private List<String> welcomeAndLeaveMessages;
 
 
@@ -22,6 +24,7 @@ public class Login extends HttpServlet {
         super.init(config);
         userDatas  =new ArrayList<>();
         userIndex = new HashMap<>();
+        userSessionId = new HashMap<>();
         welcomeAndLeaveMessages = new ArrayList<>();
     }
 
@@ -47,31 +50,61 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
        String username = request.getParameter("userName");
+       String selectAnimal = request.getParameter("animalType");//用户选择的动物种类
+
        HttpSession session = request.getSession();
        ServletContext context = request.getServletContext();
+       String sessionId = session.getId();//获取当前的sessionId
+       String correctAnimalType = String.valueOf((Integer) session.getAttribute("animalType"));
        session.setAttribute("username",username);
 
-       //欢迎消息的存储
-       if (!userIndex.containsKey(username)) {
-           String welcomeMessage = "欢迎" + username + "进入聊天室";
-           welcomeAndLeaveMessages.add(welcomeMessage);
-           context.setAttribute("welcomeMessage", welcomeAndLeaveMessages);
+
+
+       //如果验证码选择正确
+       if (selectAnimal.equals(correctAnimalType)) {
+           //更新用户最近刷新的时间
+           updateUserLastAccessedTime(sessionId);
+           //欢迎消息的存储
+           if (!userIndex.containsKey(username)) {
+               String welcomeMessage = "欢迎" + username + "进入聊天室";
+               welcomeAndLeaveMessages.add(welcomeMessage);
+               userSessionId.put(sessionId, username);
+               context.setAttribute("welcomeMessage", welcomeAndLeaveMessages);
+           }
+
+           //用户消息的存储
+           if (!userIndex.containsKey(username)) {
+               userDatas.add(new UserMessagesData(username));
+               userIndex.put(username, userDatas.size() - 1);
+
+               context.setAttribute("userIndex", userIndex);
+               session.setAttribute("userIndex", userIndex);
+               context.setAttribute("userDatas", userDatas);
+               context.setAttribute("userSessionID",userSessionId);
+           }
+
+           request.getRequestDispatcher("./jsp/Messages.jsp").forward(request, response);
+       }
+       else {
+           session.setAttribute("correct","-1");
+           response.sendRedirect("/Exercise_war_exploded/Login.html");
        }
 
-       //用户消息的存储
-       if (!userIndex.containsKey(username)){
-           userDatas.add(new UserMessagesData(username));
-           userIndex.put(username,userDatas.size()-1);
+    }
 
-           context.setAttribute("userIndex",userIndex);
-           session.setAttribute("userIndex",userIndex);
-           context.setAttribute("userDatas",userDatas);
+    // 更新用户信息表中的lastAccessedTime
+    private void updateUserLastAccessedTime(String sessionId){
+        // 获取当前时间
+        long currentTime = System.currentTimeMillis();
 
-       }
+        // 在 userSessionId 中查找对应的用户名
+        String username = userSessionId.get(sessionId);
 
-
-
-       request.getRequestDispatcher("./jsp/Messages.jsp").forward(request,response);
-
+        // 更新用户信息表中的lastAccessedTime
+        if (username != null && userIndex.containsKey(username)) {
+            int index = userIndex.get(username);
+            UserMessagesData userMessagesData = userDatas.get(index);
+            userMessagesData.setLastAccessedTime(currentTime);
+        }
     }
 }

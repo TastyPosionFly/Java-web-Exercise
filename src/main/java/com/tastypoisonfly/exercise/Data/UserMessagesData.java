@@ -7,6 +7,7 @@ import java.util.*;
 public class UserMessagesData {
     private String userName;
     private List<String> privateMessages;
+    private long lastAccessedTime;//最后刷新的时间
 
     public UserMessagesData(String userName){
         this.userName = userName;
@@ -28,5 +29,17 @@ public class UserMessagesData {
 
     public List<String> getPrivateMessages() {
         return privateMessages;
+    }
+
+    public void setLastAccessedTime(long currentTime) {
+        this.lastAccessedTime = currentTime;
+    }
+
+    public long getLastAccessedTime() {
+        return lastAccessedTime;
+    }
+
+    public String getUserName() {
+        return userName;
     }
 }

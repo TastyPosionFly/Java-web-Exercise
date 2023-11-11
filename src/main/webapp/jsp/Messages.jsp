@@ -4,20 +4,28 @@
   Date: 2023/11/3
   Time: 13:42
   To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+--%><%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>聊天室</title>
 </head>
 <body>
+    <%
+        // 检查session中是否存在username属性
+        String username = (String) session.getAttribute("username");
+
+        if(username == null) {
+            // 如果username为null，说明用户没有通过登录页面登录，执行相应的操作
+            response.sendRedirect("/Exercise_war_exploded/Login.html");
+        }
+    %>
     <iframe src="./jsp/MessageText.jsp" width="100%" height="70%"></iframe>
     <iframe src="./jsp/MessageInput.jsp" width="100%" height="25%"></iframe>
     <a href="/Exercise_war_exploded/Login">离开聊天室</a>
 </body>
 
 <script type="text/javascript">
-    var inactivityTimeout = 6000;
+    var inactivityTimeout = 600000;
 
     //当用户长时间不活动时执行的操作
     function userInactive() {

@@ -3,12 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>登入界面</title>
+    <script src="./js/UserCookie.js"></script>
 </head>
-<body>
+<body onload="checkCookie()">
     <h1>输入登入名称</h1>
-    <form name="LoinData" action="./Login" method="post">
+    <form name="LoginData" action="./Login" method="post" onsubmit="setCookie()">
         <label>用户名：</label>
         <input type="text" name="userName">
+
+        <div>
+            <label>选择下图动物的种类</label>
+            <img src="./RandomAnimalImage"alt="动物图片" width="300" height="200">
+            <select name="animalType" required>
+                <option value="0">猫</option>
+                <option value="1">狗</option>
+            </select>
+        </div>
         <input type="submit" value="登入">
     </form>
 </body>
